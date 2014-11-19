@@ -1,0 +1,27 @@
+<% content_for :content_title, @document.title %>
+<% content_for :content_title_extra do %>
+  <div class="visible-xs header-element-toggle">
+    <a class="btn btn-primary btn-icon" data-toggle="collapse" data-target="#header-buttons"><i class="icon-stats2"></i></a>
+  </div>
+  <div class="header-buttons">
+    <div class="collapse" id="header-buttons">
+      <div class="well">
+        <%= link_to icon_label(:new, 'Edit Document'), edit_admin_document_path, title: 'Edit Document', class: 'btn btn-xs btn-default' %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<div id="displayed_document">
+<%= add_tags_to_verses(@document, skml_to_html(@document.content, safe: false)) %>
+</div>
+
+<%#--- form is reused for all tag editing %>
+<%= simple_form_for @document, url: dm_knowledge.add_tags_admin_document_path(@document.id), remote: true,
+      html: { class: 'form-horizontal' }, wrapper: :bs3_horizontal_form, wrapper_mappings: DmAdmin::FormWrapperMappings do |f| %>
+
+  <%= modal_dialog title: 'Enter Tags', id: "edit_tags", include_save: true do %>
+    <%= hidden_field :document, :srcid, value: 'x.x', id: 'srcid' %>
+    <%= f.input :tag_list, hidden: true, input_html: {id: "document_tag_field", data: {tags: DmKnowledge::Document.document_tag_list.to_json}} %>
+  <% end %>
+<% end %>
