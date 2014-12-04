@@ -14,12 +14,12 @@
   border: 1px solid transparent;
 }
 
-#displayed_document [srcid] { position: relative; } /* needed to make next rule work */
-#displayed_document p[srcid]:hover {
+#displayed_document [data-srcid] { position: relative; } /* needed to make next rule work */
+#displayed_document p[data-srcid]:hover {
   border-right: 1px solid #ccc;
   /*border-radius: 5px;*/
 }
-#displayed_document p[srcid]:hover > sup {
+#displayed_document p[data-srcid]:hover > sup {
   color: #333;
   display: inline;
 }
@@ -51,17 +51,17 @@
   padding-right: 3px;
 }
 
-[who="Swami"] {color: #0101a7;}
+[data-who="Swami"] {color: #00228c;}
 
-[lang="te"] {color: red;}
-[foreign] {color: green;}
-[speaker] {font-weight: bold;}
-[speaker]:after { content: ':';}
-[mantra] {
+[data-lang="te"] {color: red;}
+[data-foreign] {color: green;}
+[data-speaker] {font-weight: bold;}
+[data-speaker]:after { content: ':';}
+[data-mantra] {
   font-size: 14px;
   font-style: italic;
 }
-p > [mantra] {
+p > [data-mantra] {
   border-top: 1px solid #aaa;
   display: block;
   border-bottom: 1px solid #aaa;
@@ -69,10 +69,10 @@ p > [mantra] {
   padding-bottom: 5px;
 }
 
-[name] {color: gray;}
-[redact] { color: black; background-color: black;}
+[data-name] {color: gray;}
+[data-redact] { color: black; background-color: black;}
 
-#displayed_document [speaker] {
+#displayed_document [data-speaker] {
   position: absolute;
   float: none;
   left: -105px;
@@ -80,27 +80,6 @@ p > [mantra] {
   text-align: right;
 }
 
-#displayed_document [type="golden"] {
-  color: #b19005;
-}
+#displayed_document [data-golden] { color: #b19005; }
+#displayed_document p[data-srcid]:hover i.add_tag { display: inline; }
 
-i.add_tag {
-  font-size: 12px;
-  color: #5377f8;
-  margin-right: 3px;
-  display: none;
-}
-
-#displayed_document p[srcid]:hover i.add_tag {
-  display: inline;
-}
-
-.tag {
-  font-size: 11px;
-  color: black;
-  background-color: #cddcf6;
-  padding: 2px 6px;
-  border-radius: 18px;
-  margin-right: 3px;
-  border: 1px solid #adc4ef;
-}

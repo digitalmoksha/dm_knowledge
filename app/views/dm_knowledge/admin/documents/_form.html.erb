@@ -14,6 +14,7 @@
 
     <%= f.input :original_date, as: :datetime_picker, required: false, wrapper: :bs3_horizontal_nosize, 
                 label_html: {class: 'col-sm-2'}, input_wrapper_html: {class: 'col-sm-4'} %>
+    <%= f.input :tag_list, hidden: true, input_html: {id: "document_tag_field", data: {tags: DmKnowledge::Document.all_tags_list.to_json}} %>
     <%= f.input :slug, label: 'Slug', required: true, hint: 'Name used when referencing this document from outside.  Should be in the format "YYYY-MM-DD_something"' %>
 
     <%= f.input :published, as: :boolean, label: false, inline_label: 'Publish It?', input_wrapper_html: {class: 'col-sm-offset-2'} %>

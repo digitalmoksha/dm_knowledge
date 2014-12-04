@@ -1,0 +1,5 @@
+<ul>
+  <% @document_list.each do |item| %>
+    <li><%= item[:document].title %> : <%= item[:tagged_srcids].join(', ') %></li>
+  <% end %>
+</ul>

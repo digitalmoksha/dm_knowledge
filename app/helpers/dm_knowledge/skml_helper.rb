@@ -15,7 +15,7 @@ module DmKnowledge::SkmlHelper
   # consider at a later time.
   #------------------------------------------------------------------------------
   def skml_to_html(skml, options = {safe: false})
-    html = skml || ''
+    html = skml.dup || ''
     
     # convert the commented inline attribute list (IAL)
     #   <!--: who="someone" srcid="x.y.z" -->
@@ -28,17 +28,19 @@ module DmKnowledge::SkmlHelper
     html.gsub!(/\[:(.*):\]/, '<speaker>\1</speaker>')
 
     # convert tagname into  <span tagname>...</span>
-    span_tags = %w[foreign mantra speaker name verse redact]
+    span_tags = %w[foreign mantra speaker name verse]
     span_tags.each do |tag|
-      html.gsub! "<#{tag}", "<span #{tag}"
+      html.gsub! "<#{tag}", "<span data-#{tag}"
       html.gsub! "</#{tag}>", "</span>"
     end
+
+    html = skml_redact(html)
 
     # convert <golden> tag into <q type="golden">...</q>
     # (based on format of <q> tag in TEI)
     q_tags = %w[golden]
     q_tags.each do |tag|
-      html.gsub! "<#{tag}", "<q type=\"#{tag}\""
+      html.gsub! "<#{tag}", "<q data-#{tag}"
       html.gsub! "</#{tag}>", "</q>"
     end
 
@@ -46,12 +48,21 @@ module DmKnowledge::SkmlHelper
     return options[:safe] ? sanitize_text(html, level: :relaxed).html_safe : html
   end
 
+  #------------------------------------------------------------------------------
+  def skml_redact(skml, char_replace = '&nbsp;')
+    redacted_text = skml.dup || ''
+    redacted_text.gsub!(/<redact(.*)>(.*)<\/redact>/) do |match|
+      "<span data-redact=\"\"#{$1}>#{char_replace * $2.length}</span>"
+    end
+    return redacted_text
+  end
+
   # add any tag references alongside the srcid
   # note: can't use gsub and $1 on a SafeBuffer, so convert with `to_str`
   #------------------------------------------------------------------------------
   def add_tags_to_verses(document, text)
     html = text.to_str
-    html.gsub!(/srcid\s?=\s?['"](.*?)['"]/) do |match|
+    html.gsub!(/data-srcid\s?=\s?['"](.*?)['"]/) do |match|
       tagid     = DmKnowledge::Document.tagcontext_from_srcid($1)
       tag_list  = document.tag_list_on(tagid)
       unless tag_list.empty?
@@ -80,14 +91,15 @@ module DmKnowledge::SkmlHelper
   def skml_set_srcids(skml)
     verse   = 0
     chapter = ''
-    skml.gsub!(/srcid\s?=\s?['"](.*\.)(x)['"]/) do |match|
+    html = skml.dup || ''
+    html.gsub!(/data-srcid\s?=\s?['"](.*\.)(x)['"]/) do |match|
       if chapter != $1
         chapter = $1
         verse   = 0
       end
       verse += 1
-      "srcid=\"#{chapter}#{verse}\""
+      "data-srcid=\"#{chapter}#{verse}\""
     end
-    return skml
+    return html
   end
 end

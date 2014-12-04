@@ -2,7 +2,7 @@ class DmKnowledge::Admin::DocumentsController < DmKnowledge::Admin::AdminControl
   include DmKnowledge::PermittedParams
   include DmKnowledge::SkmlHelper
   
-  before_filter   :document_lookup, :except =>  [:index, :new, :create]
+  before_filter   :document_lookup, :except =>  [:index, :new, :create, :tag_contents]
   
   #------------------------------------------------------------------------------
   def index
@@ -45,10 +45,7 @@ class DmKnowledge::Admin::DocumentsController < DmKnowledge::Admin::AdminControl
   #------------------------------------------------------------------------------
   def add_tags
     @srcid    = params[:document][:srcid]
-    @tagid    = DmKnowledge::Document.tagcontext_from_srcid(@srcid)
-    @document.set_tag_list_on(@tagid, params[:document][:tag_list])
-    @document.save!
-    @taglist  = @document.tag_list_on(@tagid).to_json
+    @taglist  = @document.replace_context_tags(@srcid, params[:document][:tag_list]).to_json
     respond_to do |format| 
       format.html { redirect_to admin_document_url(@document.id), notice: 'Document was successfully updated.' }
       format.js { render action: :add_tags }
@@ -61,11 +58,18 @@ class DmKnowledge::Admin::DocumentsController < DmKnowledge::Admin::AdminControl
     redirect_to admin_documents_url, notice: 'Document was successfully deleted.'
   end
   
+  #------------------------------------------------------------------------------
+  def tag_contents
+    tagname       = params[:tag]
+    taggings      = DmKnowledge::Document.sources_tagged_with(tagname)
+    @document_list = DmKnowledge::Document.tagged_document_list(taggings)
+  end
+  
 private
 
   #------------------------------------------------------------------------------
   def document_lookup
-    @document = DmKnowledge::Document.find(params[:id])
+    @document = DmKnowledge::Document.friendly.find(params[:id])
   end
 
 end

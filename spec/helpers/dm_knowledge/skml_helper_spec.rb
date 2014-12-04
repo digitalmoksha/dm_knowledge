@@ -49,7 +49,7 @@ some mantra text
 
 <p data-who="someone" data-srcid="1.x">And <span data-verse="" data-srcid="1.x.y">this is a verse</span></p>
 
-<p data-who="someone" data-srcid="1.x">And this is <span data-redact="">redacted</span></p>
+<p data-who="someone" data-srcid="1.x">And this is <span data-redact="">        </span></p>
 
 <p data-who="someone" data-srcid="1.x"><q data-golden="">A golden statment</q></p>
 
@@ -61,7 +61,7 @@ SKML
       expect(skml_to_html(skml)).to eq skml_converted
     end
     
-    it "changes text in redact tag to *" do
+    it "changes text in redact tag" do
       redact    = "Some <redact>redacted</redact> text"
       redacted  = 'Some <span data-redact="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> text'
       redacted2 = 'Some <span data-redact="">********</span> text'
