@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141114170962) do
+ActiveRecord::Schema.define(version: 20141120131348) do
 
   create_table "core_accounts", force: true do |t|
     t.string   "company_name"
@@ -234,6 +234,26 @@ ActiveRecord::Schema.define(version: 20141114170962) do
   add_index "globalize_languages", ["iso_639_2"], name: "index_globalize_languages_on_iso_639_2"
   add_index "globalize_languages", ["iso_639_3"], name: "index_globalize_languages_on_iso_639_3"
   add_index "globalize_languages", ["rfc_3066"], name: "index_globalize_languages_on_rfc_3066"
+
+  create_table "knw_document_media_file_translations", force: true do |t|
+    t.integer  "knw_document_media_file_id"
+    t.string   "locale"
+    t.string   "title"
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "knw_document_media_files", force: true do |t|
+    t.string   "media"
+    t.integer  "media_file_size"
+    t.string   "media_content_type"
+    t.string   "category"
+    t.integer  "document_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "account_id"
+  end
 
   create_table "knw_documents", force: true do |t|
     t.string   "title"

@@ -16,7 +16,7 @@ gem 'jquery-ui-rails'
 # gem 'dm_ruby_extensions',   git: 'git://github.com/digitalmoksha/dm_ruby_extensions.git'
 # gem 'admin_theme_sbadmin2', git: 'git://github.com/digitalmoksha/admin_theme_sbadmin2.git'
 # gem 'dm_core',              git: 'git://github.com/digitalmoksha/dm_core.git'
-# gem 'dm_admin',             git: 'ssh://git@github.com/digitalmoksha/dm_admin.git'
+# gem 'dm_admin',             git: 'git://github.com/digitalmoksha/dm_admin.git'
 
 gem 'preferences',          git: 'git://github.com/digitalmoksha/preferences.git'
 gem 'themes_for_rails',     git: 'git://github.com/digitalmoksha/themes_for_rails.git'
