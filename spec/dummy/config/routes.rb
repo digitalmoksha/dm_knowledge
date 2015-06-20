@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   themes_for_rails
 
   mount DmCore::Engine, :at => '/'
+  mount DmCms::Engine, :at => '/'
   mount DmKnowledge::Engine => "/dm_knowledge"
   
   scope ":locale" do
