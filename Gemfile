@@ -5,7 +5,6 @@ source "http://rubygems.org"
 # development dependencies will be added by default to the :development group.
 gemspec
 
-gem 'rails', '4.1.11'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 
@@ -15,11 +14,11 @@ gem 'jquery-ui-rails'
 # your gem to rubygems.org.
 
 gem 'admin_theme_sbadmin2', git: 'https://github.com/digitalmoksha/admin_theme_sbadmin2.git'
-gem 'dm_core',              git: 'https://github.com/digitalmoksha/dm_core.git', branch: '1-1-stable'
-gem 'dm_cms',               git: 'https://github.com/digitalmoksha/dm_cms.git', branch: '1-1-stable'
-gem 'dm_admin',             git: 'https://github.com/digitalmoksha/dm_admin.git', branch: '1-1-stable'
+gem 'dm_core',              git: 'https://github.com/digitalmoksha/dm_core.git'
+gem 'dm_cms',               git: 'https://github.com/digitalmoksha/dm_cms.git'
+gem 'dm_admin',             git: 'https://github.com/digitalmoksha/dm_admin.git'
 
-gem 'preferences',          git: 'git://github.com/digitalmoksha/preferences.git'
+gem 'dm_preferences',       '~> 1.0'
 gem 'themes_for_rails',     git: 'git://github.com/digitalmoksha/themes_for_rails.git'
 gem 'aced_rails',           git: 'git://github.com/digitalmoksha/aced_rails.git'
 
