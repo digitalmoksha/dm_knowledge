@@ -12,7 +12,7 @@
 module DmKnowledge
   module Concerns
     module Ability
-      def dm_cms_abilities(user)
+      def dm_knowledge_abilities(user)
         if user
           #--- Admin
           if user.has_role?(:content_manager)
@@ -32,6 +32,9 @@ module DmKnowledge
           # can(:read, CmsPost)   { |post| post.is_published? }
         end
       end
+
+      ::Ability.register_abilities(:dm_knowledge_abilities)
+
     end
   end
 end
