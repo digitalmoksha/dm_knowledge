@@ -2,7 +2,7 @@ class DmKnowledge::Admin::DocumentsController < DmKnowledge::Admin::AdminControl
   include DmKnowledge::PermittedParams
   include DmKnowledge::SkmlHelper
   
-  before_filter   :document_lookup, :except =>  [:index, :new, :create, :tag_contents]
+  before_action   :document_lookup, :except =>  [:index, :new, :create, :tag_contents]
   
   #------------------------------------------------------------------------------
   def index

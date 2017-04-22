@@ -1,7 +1,7 @@
 class DmKnowledge::Admin::DocumentMediaFilesController < DmKnowledge::Admin::AdminController
   include DmKnowledge::PermittedParams
 
-  before_filter   :document_lookup
+  before_action   :document_lookup
 
   #------------------------------------------------------------------------------
   def new
